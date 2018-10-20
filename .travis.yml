@@ -9,3 +9,16 @@ before_install:
 # Tell Travis how to run our test suites
 script:
   - docker run fabio90h/docker-react npm run test -- --coverage
+# Deploy to AWS
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: 'docker-react'
+  env: "Docker-env"
+  bucket_name: "elasticbeanstalk-us-west-2-414417132960"
+  bucket_path: 'docker-react'
+  on:
+    bramch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secre_access_key:
+    secure: "$AWS_SECRET_KEY"
